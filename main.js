@@ -9,12 +9,9 @@ function Book(title,author,numPages,hasRead){
 
 }
 
-Book.prototype.info = function(){
-    if(this.hasRead==true){
-        return `${this.title} by ${this.author}, ${this.numPages}, read`;
-    }else{
-        return `${this.title} by ${this.author}, ${this.numPages} pages, not read yet`;
-    }
+Book.prototype.read = function(){
+    if(this.hasRead==false)
+        this.hasRead==true;       
 
 }
 

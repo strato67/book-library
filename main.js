@@ -15,6 +15,10 @@ Book.prototype.read = function(){
 
 }
 
+Book.prototype.info = function(){
+    return [this.title,this.author,this.numPages,this.hasRead];
+}
+
 function addBook(title,author,numPages,hasRead){
     const newBook = new Book(title,author,numPages,hasRead);
     myLibrary.push(newBook);
@@ -28,7 +32,8 @@ function formValidator(){
         readTemp = true;
     }
     addBook(inputs[0].value,inputs[1].value,inputs[2].value,readTemp);
-    console.log(myLibrary);
+    
+    displayBooks()
 
 }
 
@@ -36,11 +41,40 @@ const addBookBtn = document.querySelector('#addBookBtn');
 addBookBtn.addEventListener('click',()=> formValidator());
 
 const bookGrid = document.querySelector('.cardGrid');
-
 function displayBooks(){
-    
+    bookGrid.innerHTML = '';
+
+    for (let book of myLibrary){
+        console.log(book.info());
+
+        const bookPanel = document.createElement('div');
+        bookPanel.className = 'card';
+        bookPanel.style.width = '18rem';
+
+        const bookBody = document.createElement('div');
+        bookBody.className = 'card-body';
+
+        const bookCardTitle = document.createElement('h5');
+        bookCardTitle.className = 'card-title';
+        bookCardTitle.innerText = book.info()[0];
+
+        const bookCardAuthor = document.createElement('h6');
+        bookCardAuthor.className = 'card-subtitle mb-2 text-muted';
+        bookCardAuthor.innerText = `Author: ${book.info()[1]}`;
+
+        const bookCardpgCount = document.createElement('p');
+        bookCardpgCount.className = 'card-text';
+        bookCardpgCount.innerText = `${book.info()[2]} pages`;
+        
+        bookBody.appendChild(bookCardTitle);
+        bookBody.appendChild(bookCardAuthor);
+        bookBody.appendChild(bookCardpgCount);
+        bookPanel.appendChild(bookBody);
+        bookGrid.appendChild(bookPanel);
+        
+    }
+
+
+
 }
 
-//addBook('The Hobbit', 'J.R.R. Tolkien', 295, false);
-
-console.log(myLibrary);

@@ -1,0 +1,10 @@
+.cardGrid{
+    margin: 2rem;
+}
+.card{
+    text-align: center;
+}
+.error{
+    display: none;
+    color: red;
+}

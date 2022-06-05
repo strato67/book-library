@@ -3,8 +3,14 @@
 }
 .card{
     text-align: center;
+    margin: auto;
 }
 .error{
     display: none;
     color: red;
+}
+.col-sm{
+    display: inline;
+    float: none;
+    margin: 1rem;
 }

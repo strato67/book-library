@@ -37,6 +37,7 @@ function formValidator(){
 
 }
 
+
 const addBookBtn = document.querySelector('#addBookBtn');
 addBookBtn.addEventListener('click',()=> formValidator());
 
@@ -46,6 +47,9 @@ function displayBooks(){
 
     for (let book of myLibrary){
         console.log(book.info());
+
+        const col = document.createElement('div');
+        col.className = 'col-sm';        
 
         const bookPanel = document.createElement('div');
         bookPanel.className = 'card';
@@ -65,12 +69,35 @@ function displayBooks(){
         const bookCardpgCount = document.createElement('p');
         bookCardpgCount.className = 'card-text';
         bookCardpgCount.innerText = `${book.info()[2]} pages`;
+
+        const markReadButton = document.createElement('button');
+        markReadButton.type = "button";
+
+        const btnChange = ()=>{
+            markReadButton.innerText = "Read";
+            markReadButton.className = "btn btn-success Read";
+            markReadButton.disabled = true;
+
+        }
+
+
+        if(book.info()[3] == false){
+            markReadButton.innerText = "Mark as read";
+            markReadButton.className = "btn btn-outline-success markRead";
+            markReadButton.addEventListener('click', ()=>{
+                book.read();
+                btnChange();
+
+            });
+        }else btnChange();
         
         bookBody.appendChild(bookCardTitle);
         bookBody.appendChild(bookCardAuthor);
         bookBody.appendChild(bookCardpgCount);
+        bookBody.appendChild(markReadButton);
         bookPanel.appendChild(bookBody);
-        bookGrid.appendChild(bookPanel);
+        col.appendChild(bookPanel);
+        bookGrid.appendChild(col);
         
     }
 

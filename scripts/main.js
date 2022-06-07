@@ -1,69 +1,68 @@
 let myLibrary = [];
 
-function Book(title,author,numPages,hasRead){
+function Book(title, author, numPages, hasRead) {
     this.title = title;
     this.author = author;
     this.numPages = numPages;
     this.hasRead = hasRead;
-    
+
 }
 
-Book.prototype.read = function(){  
+Book.prototype.read = function() {
     this.hasRead = true;
 
 }
 
-Book.prototype.info = function(){
-    return [this.title,this.author,this.numPages,this.hasRead];
+Book.prototype.info = function() {
+    return [this.title, this.author, this.numPages, this.hasRead];
 }
 
-function addBook(title,author,numPages,hasRead){
-    const newBook = new Book(title,author,numPages,hasRead);
+function addBook(title, author, numPages, hasRead) {
+    const newBook = new Book(title, author, numPages, hasRead);
     myLibrary.push(newBook);
 }
 
-function removeBook(title){
-    const index = myLibrary.findIndex(book =>book.title == title);
-    myLibrary.splice(index,1);
-    
+function removeBook(title) {
+    const index = myLibrary.findIndex(book => book.title == title);
+    myLibrary.splice(index, 1);
+
 }
 
-function formValidator(){
+function formValidator() {
     const inputs = document.querySelector('#addBookForm').getElementsByTagName("input");
     let readTemp = false;
     let pushBook = true;
-    
-    for(let book of myLibrary){
-        if(inputs[0].value == book.info()[0] && inputs[1].value == book.info()[1]){
+
+    for (let book of myLibrary) {
+        if (inputs[0].value == book.info()[0] && inputs[1].value == book.info()[1]) {
             pushBook = false;
-            
+
         }
 
     }
 
-    if(inputs[3].checked ==true){
+    if (inputs[3].checked == true) {
         readTemp = true;
     }
-    if(pushBook){
-        addBook(inputs[0].value,inputs[1].value,inputs[2].value,readTemp);
+    if (pushBook) {
+        addBook(inputs[0].value, inputs[1].value, inputs[2].value, readTemp);
         displayBooks();
     }
 
 }
 
-
 const addBookBtn = document.querySelector('#addBookBtn');
-addBookBtn.addEventListener('click',()=> formValidator());
+addBookBtn.addEventListener('click', () => formValidator());
 
 const bookGrid = document.querySelector('.cardGrid');
 
-function displayBooks(){
+function displayBooks() {
     bookGrid.innerHTML = '';
 
-    for (let book of myLibrary){
+    for (let book of myLibrary) {
 
         const col = document.createElement('div');
-        col.className = 'col-sm';        
+        col.className = 'col-sm';
 
         const bookPanel = document.createElement('div');
         bookPanel.className = 'card';
@@ -91,33 +90,33 @@ function displayBooks(){
         deleteButton.type = "button";
         deleteButton.className = 'btn btn-outline-danger delete';
         deleteButton.innerText = "Delete";
-        deleteButton.addEventListener('click', () =>{
+        deleteButton.addEventListener('click', () => {
             removeBook(book.info()[0]);
-            if(myLibrary.length==0){
+            if (myLibrary.length == 0) {
                 displayIcon();
-            }else{
+            } else {
                 displayBooks();
-            }           
+            }
 
         });
 
-        const btnChange = ()=>{
+        const btnChange = () => {
             markReadButton.innerText = "Read";
             markReadButton.className = "btn btn-success Read";
             markReadButton.disabled = true;
 
         }
 
-        if(book.info()[3] == false){
+        if (book.info()[3] == false) {
             markReadButton.innerText = "Mark as read";
             markReadButton.className = "btn btn-outline-success markRead";
-            markReadButton.addEventListener('click', ()=>{
+            markReadButton.addEventListener('click', () => {
                 book.read();
                 btnChange();
 
             });
-        }else btnChange();
-                
+        } else btnChange();
+
         bookBody.appendChild(bookCardTitle);
         bookBody.appendChild(bookCardAuthor);
         bookBody.appendChild(bookCardpgCount);
@@ -126,17 +125,17 @@ function displayBooks(){
         bookPanel.appendChild(bookBody);
         col.appendChild(bookPanel);
         bookGrid.appendChild(col);
-        
+
     }
 }
 
-function displayIcon(){
+function displayIcon() {
     bookGrid.innerHTML = '';
     const imgHolder = document.createElement('div');
     imgHolder.className = 'addBookIMG';
 
     const img = document.createElement('img');
-    img.src ='styles/plus.png';
+    img.src = 'styles/plus.png';
 
     const header = document.createElement('h1');
     header.innerText = "Add a Book";

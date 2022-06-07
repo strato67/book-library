@@ -25,8 +25,8 @@ function addBook(title,author,numPages,hasRead){
 function removeBook(title){
     const index = myLibrary.findIndex(book =>book.title == title);
     myLibrary.splice(index,1);
+    
 }
-
 
 function formValidator(){
     const inputs = document.querySelector('#addBookForm').getElementsByTagName("input");
@@ -51,10 +51,12 @@ function formValidator(){
 
 }
 
+
 const addBookBtn = document.querySelector('#addBookBtn');
 addBookBtn.addEventListener('click',()=> formValidator());
 
 const bookGrid = document.querySelector('.cardGrid');
+
 function displayBooks(){
     bookGrid.innerHTML = '';
 
@@ -91,7 +93,11 @@ function displayBooks(){
         deleteButton.innerText = "Delete";
         deleteButton.addEventListener('click', () =>{
             removeBook(book.info()[0]);
-            displayBooks();
+            if(myLibrary.length==0){
+                displayIcon();
+            }else{
+                displayBooks();
+            }           
 
         });
 
@@ -122,6 +128,22 @@ function displayBooks(){
         bookGrid.appendChild(col);
         
     }
-
 }
 
+function displayIcon(){
+    bookGrid.innerHTML = '';
+    const imgHolder = document.createElement('div');
+    imgHolder.className = 'addBookIMG';
+
+    const img = document.createElement('img');
+    img.src ='styles/plus.png';
+
+    const header = document.createElement('h1');
+    header.innerText = "Add a Book";
+
+    imgHolder.appendChild(img);
+    imgHolder.appendChild(header);
+    bookGrid.appendChild(imgHolder);
+}
+
+displayIcon();

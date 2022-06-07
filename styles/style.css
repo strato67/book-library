@@ -17,3 +17,10 @@
 .delete{
     margin-left: 1rem;
 }
+.addBookIMG{
+    text-align: center;
+}
+.addBookIMG>img{
+    max-width: 100%;
+    max-height: 100%;
+}

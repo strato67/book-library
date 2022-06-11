@@ -5,8 +5,7 @@
     text-align: center;
     margin: auto;
 }
-.error{
-    display: none;
+.error,.req{
     color: red;
 }
 .col-sm{

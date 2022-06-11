@@ -30,12 +30,19 @@ function removeBook(title) {
 
 function formValidator() {
     const inputs = document.querySelector('#addBookForm').getElementsByTagName("input");
+    const error = document.querySelector('.error');
     let readTemp = false;
     let pushBook = true;
+
+    if(inputs[0].value == '' || inputs[1].value == '' || inputs[2].value == ''){
+        pushBook = false;
+        error.innerText = '*Please fill the required fields';
+    }
 
     for (let book of myLibrary) {
         if (inputs[0].value == book.info()[0] && inputs[1].value == book.info()[1]) {
             pushBook = false;
+            error.innerText = '*Book already in library';
 
         }
 
@@ -45,6 +52,7 @@ function formValidator() {
         readTemp = true;
     }
     if (pushBook) {
+        error.innerText = '';
         addBook(inputs[0].value, inputs[1].value, inputs[2].value, readTemp);
         displayBooks();
     }

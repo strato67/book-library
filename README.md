@@ -1,3 +1,3 @@
 # Book-Library
 
-Simple application to keep track of read books
+Simple application to keep track of books read
